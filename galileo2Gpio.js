@@ -1,6 +1,7 @@
-var sys = require('sys')
-var sys = require('sys')
+var sys = require('sys');
+var sys = require('sys');
 var exec = require('child_process').exec;
+var execSync = require('exec-sync');
 
 function puts(error, stdout, stderr){
 	sys.print('stdout: ' + stdout);
@@ -29,15 +30,21 @@ function setGpioDirection(pinNum, outPred){
 		exec(cmd);
 		return;
 	}
-
 }
 
 
 function validPin(pinNum){
-	return pinNum < 0 || pinNum > 13 ? false : true;
+	return typeof(pinNum) === 'number' && pinNum >= 0 && pinNum <= 13 ? true : false;
+}
+
+
+function getGpioPower(pinNum){
+	return parseInt(execSync('./getGpioPower ' + pinNum));
+
 }
 
 
 exports.setGpioPower = setGpioPower;
 exports.setGpioDirection = setGpioDirection;
+exports.getGpioPower = getGpioPower;
 
