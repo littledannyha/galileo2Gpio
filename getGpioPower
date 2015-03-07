@@ -1,0 +1,18 @@
+#!/bin/bash
+if [ $# != 1 ]
+	then 
+		echo "usage: pin"
+		exit 
+fi
+
+
+
+gpioNumber=$(./getGpioFromPin $1)
+
+if [ ! -d /sys/class/gpio/gpio$gpioNumber ];
+	then
+		echo "pin is not registered"
+		exit
+fi
+
+cat /sys/class/gpio/gpio$gpioNumber/value
