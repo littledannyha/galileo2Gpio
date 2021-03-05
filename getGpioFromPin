@@ -1,0 +1,28 @@
+#!/usr/bin/node
+
+if(process.argv.length!=3){
+	console.log("usage: getGpioFromPin pinNumber\n");
+	process.exit();
+}
+mapping = {
+	"0" : 11,
+	"1" : 12,
+	"2" : 13,
+	"3" : 14,
+	"4" : 6,
+	"5" : 0,
+	"6" : 1,
+	"7" : 38,
+	"8" : 40,
+	"9" : 4,
+	"10" : 10,
+	"11" : 5,
+	"12" : 15,
+	"13" : 7
+}
+pinNum = process.argv[2];
+if(pinNum < 0 || pinNum > 13){
+	console.log("getGpioFromPin: invalid pin\n");
+	process.exit();
+}
+console.log(mapping[pinNum]);

@@ -1,0 +1,36 @@
+#!/bin/bash
+if [ $# != 2 ]
+	then 
+		echo "usage: pin [ on|off ]"
+		exit 
+fi
+
+if [ $2 != "on" ];
+	then
+		if [ $2 != "off" ];
+			then
+				echo "invalid state given"
+				echo "usage: pin [ on|off ]"
+				exit
+
+		fi
+fi
+
+gpioNumber=$(./getGpioFromPin $1)
+
+
+./registerGpioPin $gpioNumber
+echo "setGpioPower: registering pin $gpioNumber"
+./setGpioDirection $1 out
+if [ $2 != "on" ];
+	then
+		echo -n '1' > /sys/class/gpio/gpio$gpioNumber/value
+	
+fi
+
+if [ $2 != "off" ];
+	then
+		echo -n '0' >  /sys/class/gpio/gpio$gpioNumber/value
+	
+
+fi

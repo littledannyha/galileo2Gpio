@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ -d /sys/class/gpio/gpio"$1" ];
+	then
+		echo "registerGpioPin: /sys/class/gpio/gpio$1 already exists"
+		#echo "pin is already registered"
+	else
+		echo "registering pin $1"
+		echo "executing echo -n $1 >> /sys/class/gpio/export"
+		echo -n "$1" >> /sys/class/gpio/export
+fi

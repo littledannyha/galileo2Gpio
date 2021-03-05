@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ -d /sys/class/gpio/gpio$1 ];
+	then
+		echo "unregistering pin $1"
+		echo -n "$1" >> /sys/class/gpio/unexport
+	else
+		echo "pin $1 is not registered"
+fi

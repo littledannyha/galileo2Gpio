@@ -1,0 +1,34 @@
+#!/bin/bash
+if [ $# != 2 ]
+	then 
+		echo "usage: pin [in|out]"
+		exit 
+fi
+
+if [ $2 != "in" ];
+	then
+		if [ $2 != "out" ];
+			then
+				echo "invalid direction given"
+				echo "usage: pin [ in|out]"
+				exit
+
+		fi
+fi
+
+gpioNumber=$(./getGpioFromPin $1)
+echo "Pin Number $gpioNumber"
+
+
+./registerGpioPin $gpioNumber
+if [ $2 != "in" ];
+	then
+		echo -n 'in' >  /sys/class/gpio/gpio$gpioNumber/direction
+	
+fi
+
+if [ $2 != "off" ];
+	then
+		echo -n 'out' >  /sys/class/gpio/gpio$gpioNumber/direction
+	
+fi
